@@ -1,0 +1,7 @@
+gaspa:
+  connection:
+    keep-alive: 5
+  bridge:
+    name: ident
+    uuid: 796b6298-59c4-4128-b28d-2ea0b1497af9
+    listen: 0.0.0.0:8960
