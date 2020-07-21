@@ -1,7 +1,12 @@
 // Command gaspa-bridge runs a simple bridge service
 package main
 
-import "github.com/urfave/cli/v2"
+import (
+	"fmt"
+
+	"github.com/urfave/cli/v2"
+	gaspa "github.com/xtlsoft/Gaspa"
+)
 
 func main() {
 	app := cli.NewApp()
@@ -22,9 +27,16 @@ func main() {
 			Usage:       "Configure file path",
 		},
 	}
+	app.Version = gaspa.Version
 	app.Action = func(ctx *cli.Context) error {
-
-		return nil
+		err := loadConfigure(ctx.String("configure"))
+		if err != nil {
+			str := "Configure file '%s' not found.\r\nRun `gaspa-bridge -h` for more help."
+			return fmt.Errorf(str, ctx.String("configure"))
+		}
+		srv := newServer()
+		err = srv.serve()
+		return err
 	}
 	app.RunAndExitOnError()
 }
