@@ -24,7 +24,7 @@ const (
 type RegisteredConnection struct {
 	Name string       `json:"name"`
 	UUID uuid.UUID    `json:"uuid"`
-	Conn *net.TCPConn `json:"conn"`
+	Conn *net.TCPConn `json:"-"`
 }
 
 // MetaResult of Meta query
@@ -32,3 +32,15 @@ type MetaResult struct {
 	Status string                             `json:"status"`
 	Result map[uuid.UUID]RegisteredConnection `json:"result"`
 }
+
+// MetaQuery query type enum
+const (
+	MetaQueryTypeName = 'n'
+	MetaQueryTypeUUID = 'i'
+)
+
+// MetaQuery result
+const (
+	MetaQueryNotFound = 'n'
+	MetaQueryFound    = 'y'
+)
